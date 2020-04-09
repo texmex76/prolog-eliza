@@ -34,3 +34,9 @@ Keywords have rankings (in Prolog, we would just write higher-ranking ones first
 > The system described so far is essentially one which selects a decomposition rule for the highest ranking key word found in an input text, attempts to match that text according to that decomposition rule and, failing to make a match, selects the next reassembly rule associated with the matching decomposition rule and applies it to generate an output text.
 
 **Weizenbaum used SLIP, since we use Prolog we can omit many explicit programming instructions from the paper.** Maybe we could even argue that it's easier to program Eliza in Prolog (nowadays, Prolog hadn't been around at that time yet)
+
+## Our Project
+
+- Background, definition
+- Our implementation
+- Comparison Prolog/SLIP
