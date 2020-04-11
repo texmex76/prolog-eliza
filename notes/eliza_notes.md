@@ -40,3 +40,13 @@ Keywords have rankings (in Prolog, we would just write higher-ranking ones first
 - Background, definition
 - Our implementation
 - Comparison Prolog/SLIP
+
+## Matching mechanism
+
+The matching mechanism is the core of the program. Different tempaltes determine the transformation of the input text. A template looks like
+
+```
+template([s([i,am]),s(X)], [s([why,are,you]),s(X),w('?')]).
+```
+
+Each template has two entries, the input pattern to be matched and resulting output pattern: ```template(input,output)```. Each patterns are lists whose entries are either of two structures: ```s/1``` for sentences and ```w/1``` for words. The structure ```w/1``` is filled with a single atom and ```s/1``` with a list of atoms.

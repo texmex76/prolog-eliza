@@ -1,5 +1,6 @@
 % First idea of a program that basically repeats what you say
 % User can type in words separated by spaces
+% The output is pretty-printed
 
 eliza :-
     write_ln('how do you do. please tell me your problem'),
@@ -12,7 +13,7 @@ eliza([bye]) :-
     write_ln('bye. hope I could help you'), !.
 
 eliza(Input) :-
-    write_ln(Input),
+    print_response(Input),
     write('? '),
     read_word_list(NewInput),
     eliza(NewInput).
@@ -28,3 +29,11 @@ read_word_list(Ws) :-
     %  Break the text into words, numbers and punctuation characters
     % Ws = [hello, there, ',', how, are, you, ?].
     tokenize_atom(A, Ws).
+
+% Pretty-print a list of atoms since write_ln will output [it,like,this]
+print_response([]) :-
+    nl.
+print_response([Head|Tail]) :-
+    write(Head),
+    write(' '),
+    print_response(Tail).
