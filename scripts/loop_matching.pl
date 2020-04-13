@@ -20,6 +20,7 @@ eliza(Input) :-
     !,
     % printing response.
     print_response(Response),
+    write('? '),
     % new input awaiting.
     read_word_list(NewInput),
     % call of eliza again.
@@ -48,6 +49,9 @@ print_response([Head|Tail]) :-
 % templates which we try to match the input with
 % w == structure with one word or one character
 % s == structure with a list of words (sentence)
+% template([], []).
+template([w(sorry),s(_)], [s([please,do,not,apologize])]).
+template([s([i,remember]),s(X)], [s([why,do,you,remember]),s(X),s([just,now,?])]).
 template([s([i,am]),s(X)], [s([why,are,you]),s(X),w('?')]).
 template([w(i),s(X),w(you)], [s([why,do,you]),s(X),w(me),w('?')]).
 template([s(_)], [s([please,go,on])]).

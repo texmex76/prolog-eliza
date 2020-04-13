@@ -43,10 +43,61 @@ Keywords have rankings (in Prolog, we would just write higher-ranking ones first
 
 ## Matching mechanism
 
-The matching mechanism is the core of the program. Different tempaltes determine the transformation of the input text. A template looks like
+The matching mechanism is the core of the program. Different templates determine the transformation of the input text. A template looks like
 
 ```
 template([s([i,am]),s(X)], [s([why,are,you]),s(X),w('?')]).
 ```
 
-Each template has two entries, the input pattern to be matched and resulting output pattern: ```template(input,output)```. Each patterns are lists whose entries are either of two structures: ```s/1``` for sentences and ```w/1``` for words. The structure ```w/1``` is filled with a single atom and ```s/1``` with a list of atoms.
+Each template has two entries, the input pattern to be matched and resulting output pattern: ```template(input,output)```. Each patterns are lists whose entries are either of two structures: ```s/1``` for sentences and ```w/1``` for words. The structure ```w/1``` is filled with a single atom and ```s/1``` with a list of atoms. The matching mechanism looks like
+
+```
+match([],[]).
+match([Item|Items],[Word|Words]) :-
+    match(Item, Items, Word, Words).
+
+match(w(Word), Items, Word, Words) :-
+    match(Items, Words).
+match(s([Word|Seg]), Items, Word, Words0) :-
+    append(Seg, Words1, Words0),
+    match(Items, Words1).
+```
+
+Let's go through it in detail. Suppose the user enters
+
+```
+i am really tired
+```
+
+The first template is taken and passed to the first match clause with arity 2. The match clause will be called again
+
+```
+match(s([i,am]), [s(X)], i, [am,really,tired])
+```
+
+```
+match(s([i|am]), [s(X)], i, [am,really,tired])
+    append([am], Words1, [am,really,tired])
+    match([s(X)], Words1)
+    
+=> Words1 has to be [really,tired]
+```
+
+```
+match([s(X)], [really, tired])
+match(s(X), [], really, [tired])
+    append(_?, Words1, [tired])
+    append([], [tired], [tired])
+match([], [tired]) => fail
+    append([tired], [], [tired])
+```
+
+```
+match([], []) => success
+```
+
+We get
+
+```
+match([s([i, am]), s([very, tired])], [i, am, very, tired])
+```
