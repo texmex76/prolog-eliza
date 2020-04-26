@@ -51,7 +51,7 @@ print_response([Head|Tail]) :-
     write(' '),
     print_response(Tail).
 
-% these are transformation rules to change the personal pronounse from me to you and the other way around.
+% these are transformation rules to change the personal pronouns from me to you and the other way around.
 personal([s(X),w(yourself)],[s(X),w(myself)]).
 personal([s(X),w(yourself),s(Y)],[s(X),w(myself),s(Y)]).
 personal([s(X),w(myself)],[s(X),w(yourself)]).
