@@ -60,7 +60,6 @@ personal([s(X),w(me)],[s(X),w(you)]).
 personal([s(X),w(me),s(Y)],[s(X),w(you),s(Y)]).
 personal([s(X),w(your),s(Y)],[s(X),w(my),s(Y)]).
 personal([s(X),w(my),s(Y)],[s(X),w(your),s(Y)]).
-personal([s(X),w(your),s(Y)],[s(X),w(my),s(Y)]).
 personal([s(X),s([you, are]),s(Y)],[s(X),s([i,am]),s(Y)]).
 personal([s(X),s([i,am]),s(Y)],[s(X),s([you,are]),s(Y)]).
 personal([s(X)],[s(X)]).
