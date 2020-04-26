@@ -13,7 +13,7 @@ eliza(Input) :-
     % getting a template from the defined templates.
     template(InputPattern, ResponsePattern),
     % getting a personal template to exchange pronounse like yourself or your.
-    personal(PersonalInput,PersonalOutput),
+    pronoun(PersonalInput,PersonalOutput),
     % matching personal input with the actual input.
     match(PersonalInput,Input),
     % matching output of the personal output so that we have a personaled input with exchanged your/my, etc.
@@ -52,18 +52,17 @@ print_response([Head|Tail]) :-
     print_response(Tail).
 
 % these are transformation rules to change the personal pronouns from me to you and the other way around.
-personal([s(X),w(yourself)],[s(X),w(myself)]).
-personal([s(X),w(yourself),s(Y)],[s(X),w(myself),s(Y)]).
-personal([s(X),w(myself)],[s(X),w(yourself)]).
-personal([s(X),w(myself),s(Y)],[s(X),w(yourself),s(Y)]).
-personal([s(X),w(me)],[s(X),w(you)]).
-personal([s(X),w(me),s(Y)],[s(X),w(you),s(Y)]).
-personal([s(X),w(your),s(Y)],[s(X),w(my),s(Y)]).
-personal([s(X),w(my),s(Y)],[s(X),w(your),s(Y)]).
-personal([s(X),w(your),s(Y)],[s(X),w(my),s(Y)]).
-personal([s(X),s([you, are]),s(Y)],[s(X),s([i,am]),s(Y)]).
-personal([s(X),s([i,am]),s(Y)],[s(X),s([you,are]),s(Y)]).
-personal([s(X)],[s(X)]).
+pronoun([s(X),w(yourself)],[s(X),w(myself)]).
+pronoun([s(X),w(yourself),s(Y)],[s(X),w(myself),s(Y)]).
+pronoun([s(X),w(myself)],[s(X),w(yourself)]).
+pronoun([s(X),w(myself),s(Y)],[s(X),w(yourself),s(Y)]).
+pronoun([s(X),w(me)],[s(X),w(you)]).
+pronoun([s(X),w(me),s(Y)],[s(X),w(you),s(Y)]).
+pronoun([s(X),w(your),s(Y)],[s(X),w(my),s(Y)]).
+pronoun([s(X),w(my),s(Y)],[s(X),w(your),s(Y)]).
+pronoun([s(X),s([you, are]),s(Y)],[s(X),s([i,am]),s(Y)]).
+pronoun([s(X),s([i,am]),s(Y)],[s(X),s([you,are]),s(Y)]).
+pronoun([s(X)],[s(X)]).
 
 % templates which we try to match the input with
 % w == structure with one word or one character
